@@ -5,7 +5,9 @@ const fetchTimesByLocation = async (request: any) => {
   const state = request.headers.get("X-Vercel-IP-Country-Region");
   const country = request.headers.get("X-Vercel-IP-Country");
   const method = 2 // ISNA
-  const json = await fetch(`${baseURL}?/city=${city}&state=${state}&country=${country}&method=${method}`)
+  // const url = `${baseURL}?/city=${city}&state=${state}&country=${country}&method=${method}`
+  // console.log(url)
+  const json = await fetch(`${baseURL}?city=${city}&state=${state}&country=${country}&method=${method}`)
   return await json.json()
 }
 
