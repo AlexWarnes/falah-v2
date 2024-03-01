@@ -16,7 +16,7 @@ export async function load({ request, getClientAddress }) {
   const xvLng = request.headers.get("X-Vercel-longitude");
   const gca = getClientAddress();
 
-  const pt = await fetchTimesByLocation(request)
+  const pt = (await fetchTimesByLocation(request)).json()
   
 
   return {
