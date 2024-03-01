@@ -1,11 +1,12 @@
 const fetchTimesByLocation = async (request: any) => {
-  const baseURL = "http://api.aladhan.com/v1/timingsByCity"
+  const baseURL = "https://api.aladhan.com/v1/timingsByCity"
   // http://api.aladhan.com/v1/timingsByCity?city=Dubai&country=United Arab Emirates&method=8
   const city = request.headers.get("X-Vercel-IP-City");
   const state = request.headers.get("X-Vercel-IP-Country-Region");
   const country = request.headers.get("X-Vercel-IP-Country");
   const method = 2 // ISNA
-  return await fetch(`${baseURL}?/city=${city}&state=${state}&country=${country}&method=${method}`)
+  const json = await fetch(`${baseURL}?/city=${city}&state=${state}&country=${country}&method=${method}`)
+  return await json.json()
 }
 
 export async function load({ request, getClientAddress }) {
@@ -16,7 +17,7 @@ export async function load({ request, getClientAddress }) {
   const xvLng = request.headers.get("X-Vercel-longitude");
   const gca = getClientAddress();
 
-  const pt = (await fetchTimesByLocation(request)).json()
+  const pt = await fetchTimesByLocation(request)
   
 
   return {
